@@ -25,9 +25,10 @@ func (p *resizedImage) ColorModel() color.Model {
 
 func (p *resizedImage) At(x, y int) color.Color {
 	inverseScaleFactor := new(big.Rat)
-	inverseScaleFactor.Set(&p.scaleFactor)
-	inverseScaleFactor.Inv(inverseScaleFactor)
-	return p.img.At(scaleBy(x, *inverseScaleFactor), scaleBy(y, *inverseScaleFactor))
+	inverseScaleFactor.Inv(&p.scaleFactor)
+	return p.img.At(
+		scaleBy(x, *inverseScaleFactor),
+		scaleBy(y, *inverseScaleFactor))
 }
 
 func scaleBy(a int, scaleFactor big.Rat) int {
